@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绿色地球 - 环保宣传平台</title>
+  <style>
+    /* 基础样式 */
+    :root {
+      --primary: #2e7d32;
+      --secondary: #43a047;
+      --accent: #81c784;
+      --light: #e8f5e9;
+      --dark: #1b5e20;
+      --gray: #f1f8e9;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+    
+    body {
+      background-color: #f9fcf9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* 导航栏 */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(46, 125, 50, 0.95);
+      color: white;
+      padding: 15px 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      font-size: 28px;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 30px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    /* 首页轮播图 */
+    .hero {
+      margin-top: 80px;
+      position: relative;
+      height: 600px;
+      overflow: hidden;
+    }
+    
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    
+    .slide.active {
+      opacity: 1;
+    }
+    
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .slide-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 80%;
+      max-width: 800px;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .slide-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease;
+    }
+    
+    .slide-content p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      animation: fadeIn 1s ease 0.3s both;
+    }
+    
+    .cta-btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      animation: fadeIn 1s ease 0.6s both;
+    }
+    
+    .cta-btn:hover {
+      background-color: var(--dark);
+    }
+    
+    .slider-dots {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      margin: 0 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .dot.active {
+      background-color: white;
+    }
+    
+    /* 环保知识页面 - 选项卡 */
+    .knowledge-section {
+      max-width: 1200px;
+      margin: 80px auto 0;
+      padding: 0 20px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 36px;
+      color: var(--dark);
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+    
+    .tab-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    
+    .tabs {
+      display: flex;
+      border-bottom: 2px solid var(--gray);
+    }
+    
+    .tab {
+      padding: 15px 30px;
+      cursor: pointer;
+      font-weight: 500;
+      color: #666;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .tab.active {
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+    }
+    
+    .tab-content {
+      padding: 30px;
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .knowledge-card {
+      display: flex;
+      margin-bottom: 30px;
+      background-color: var(--gray);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .knowledge-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .knowledge-img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .knowledge-text {
+      padding: 20px;
+      flex: 1;
+    }
+    
+    .knowledge-text h3 {
+      font-size: 20px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    
+    .knowledge-text p {
+      color: #555;
+      margin-bottom: 15px;
+    }
+    
+    /* 环保行动页面 - 表单与日历 */
+    .action-section {
+      max-width: 1200px;
+      margin: 80px auto 0;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    
+    .action-form {
+      flex: 1;
+      min-width: 300px;
+      max-width: 500px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #444;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    
+    .form-control.error {
+      border-color: #f44336;
+    }
+    
+    .form-error {
+      color: #f44336;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+    
+    .form-error.active {
+      display: block;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+    }
+    
+    .checkbox-item input {
+      margin-right: 8px;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .submit-btn:hover {
+      background-color: var(--dark);
+    }
+    
+    .action-calendar {
+      flex: 1;
+      min-width: 300px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .calendar-title {
+      font-size: 22px;
+      color: var(--dark);
+    }
+    
+    .calendar-nav {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .calendar-nav button {
+      background: none;
+      border: 1px solid var(--gray);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .calendar-nav button:hover {
+      background-color: var(--gray);
+      color: var(--primary);
+    }
+    
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .day-header {
+      text-align: center;
+      font-weight: 500;
+      color: #666;
+      padding-bottom: 10px;
+    }
+    
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+    
+    .calendar-day {
+      height: 60px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      border: 1px solid var(--gray);
+    }
+    
+    .calendar-day.not-current {
+      color: #ccc;
+      border-color: #f5f5f5;
+      cursor: not-allowed;
+    }
+    
+    .calendar-day.today {
+      background-color: var(--light);
+      border-color: var(--accent);
+    }
+    
+    .calendar-day.punched {
+      background-color: var(--accent);
+      color: white;
+    }
+    
+    .calendar-day.punched::after {
+      content: '✓';
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      font-weight: bold;
+    }
+    
+    .day-number {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .day-activity {
+      font-size: 12px;
+      color: #666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* 成功案例页面 - 筛选与懒加载 */
+    .case-section {
+      max-width: 1200px;
+      margin: 80px auto 0;
+      padding: 0 20px;
+    }
+    
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+    
+    .filter-btn {
+      background-color: white;
+      border: 1px solid var(--gray);
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    
+    .filter-btn.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .case-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    
+    .case-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .case-img-container {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .case-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .case-card:hover .case-img {
+      transform: scale(1.05);
+    }
+    
+    .case-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: var(--primary);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    
+    .case-content {
+      padding: 20px;
+    }
+    
+    .case-content h3 {
+      font-size: 18px;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    
+    .case-content p {
+      color: #666;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .case-meta {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #888;
+    }
+    
+    .case-meta i {
+      margin-right: 5px;
+    }
+    
+    /* 资源下载页面 */
+    .resource-section {
+      max-width: 1200px;
+      margin: 80px auto 0;
+      padding: 0 20px;
+    }
+    
+    .resource-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    
+    .resource-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .resource-icon {
+      width: 50px;
+      height: 50px;
+      background-color: var(--light);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--primary);
+      margin-right: 15px;
+    }
+    
+    .resource-info {
+      flex: 1;
+    }
+    
+    .resource-info h3 {
+      font-size: 16px;
+      color: var(--dark);
+      margin-bottom: 5px;
+    }
+    
+    .resource-info p {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    
+    .download-btn {
+      display: inline-block;
+      background-color: var(--light);
+      color: var(--primary);
+      padding: 8px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    
+    .download-btn:hover {
+      background-color: var(--accent);
+    }
+    
+    .download-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    
+    .download-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .modal-content {
+      background-color: white;
+      border-radius: 10px;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s;
+    }
+    
+    .download-modal.active .modal-content {
+      transform: scale(1);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+    }
+    
+    .progress-container {
+      width: 100%;
+      background-color: #f0f0f0;
+      border-radius: 20px;
+      height: 8px;
+      margin: 20px 0 30px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background-color: var(--primary);
+      border-radius: 20px;
+      transition: width 0.5s ease-in-out;
+    }
+    
+    .footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 50px 0 20px;
+      margin-top: 80px;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    
+    .footer-col {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .footer-col h3 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .footer-col h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--accent);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-contact p {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .footer-contact i {
+      margin-right: 10px;
+      width: 24px;
+      text-align: center;
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      color: #aaa;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 992px) {
+      .case-grid, .resource-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero {
+        height: 450px;
+      }
+      
+      .slide-content h1 {
+        font-size: 36px;
+      }
+      
+      .slide-content p {
+        font-size: 18px;
+      }
+      
+      .tabs {
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+      
+      .tab {
+        white-space: nowrap;
+        padding: 15px 20px;
+      }
+      
+      .action-section {
+        flex-direction: column;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        background-color: var(--primary);
+        flex-direction: column;
+        padding: 30px 20px;
+        transition: left 0.3s;
+        z-index: 999;
+      }
+      
+      .nav-links.active {
+        left: 0;
+      }
+      
+      .nav-links li {
+        margin: 15px 0;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero {
+        height: 350px;
+      }
+      
+      .slide-content h1 {
+        font-size: 28px;
+      }
+      
+      .slide-content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+      
+      .knowledge-card {
+        flex-direction: column;
+      }
+      
+      .knowledge-img {
+        width: 100%;
+        height: 180px;
+      }
+      
+      .case-grid, .resource-list {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* 动画 */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        <span>绿色地球</span>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" class="nav-link">首页</a></li>
+        <li><a href="#knowledge" class="nav-link">环保知识</a></li>
+        <li><a href="#action" class="nav-link">环保行动</a></li>
+        <li><a href="#cases" class="nav-link">成功案例</a></li>
+        <li><a href="#resources" class="nav-link">资源下载</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 首页轮播图 -->
+  <section class="hero" id="hero">
+    <div class="slider">
+      <div class="slide active">
+        <img src="https://picsum.photos/id/10/1920/1080" alt="环保自然景观">
+        <div class="slide-content">
+          <h1>守护绿色地球</h1>
+          <p>从小事做起，让环保成为生活的一部分</p>
+          <a href="#action" class="cta-btn">立即行动</a>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="https://picsum.photos/id/29/1920/1080" alt="环保植树活动">
+        <div class="slide-content">
+          <h1>绿色行动，从我做起</h1>
+          <p>每一次环保行动，都是对地球的一份关爱</p>
+          <a href="#knowledge" class="cta-btn">了解更多</a>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="https://picsum.photos/id/130/1920/1080" alt="环保海洋保护">
+        <div class="slide-content">
+          <h1>保护生态环境</h1>
+          <p>共同守护我们唯一的家园</p>
+          <a href="#cases" class="cta-btn">查看案例</a>
+        </div>
+      </div>
+    </div>
+    <div class="slider-dots" id="sliderDots">
+      <div class="dot active" data-index="0"></div>
+      <div class="dot" data-index="1"></div>
+      <div class="dot" data-index="2"></div>
+    </div>
+  </section>
+
+  <!-- 环保知识页面 -->
+  <section class="knowledge-section" id="knowledge">
+    <div class="section-title">
+      <h2>环保知识科普</h2>
+    </div>
+    <div class="tab-container">
+      <div class="tabs">
+        <div class="tab active" data-tab="energy">能源节约</div>
+        <div class="tab" data-tab="waste">垃圾分类</div>
+        <div class="tab" data-tab="water">水资源保护</div>
+        <div class="tab" data-tab="plant">植物保护</div>
+      </div>
+      <div class="tab-content active" id="energy">
+        <div class="knowledge-card">
+          <img src="https://picsum.photos/id/119/300/200" alt="节能灯泡" class="knowledge-img">
+          <div class="knowledge-text">
+            <h3>使用节能电器</h3>
+            <p>选择节能型家电，如LED灯泡、节能冰箱等，不仅省电，还能减少碳排放，长期使用更节省开支。</p>
+          </div>
+        </div>
+        <div class="knowledge-card">
+          <img src="https://picsum.photos/id/128/300/200" alt="太阳能板" class="knowledge-img">
+          <div class="knowledge-text">
+            <h3>利用可再生能源</h3>
+            <p>太阳能、风能等可再生能源是清洁无污染的能源形式，家庭可安装太阳能板，减少对传统能源的依赖。</p>
+          </div>
+        </div>
+      </div>
+      <div class="tab-content" id="waste">
+        <div class="knowledge-card">
+          <img src="https://picsum.photos/id/146/300/200" alt="垃圾分类" class="knowledge-img">
+          <div class="knowledge-text">
+            <h3>四分类法</h3>
+            <p>将垃圾分为可回收物、有害垃圾、厨余垃圾和其他垃圾，正确分类可提高垃圾回收率，减少环境污染。</p>
+          </div>
+        </div>
+        <div class="knowledge-card">
+          <img src="https://picsum.photos/id/148/300/200" alt="减少塑料" class="knowledge-img">
+          <div class="knowledge-text">
+            <h3>减少塑料使用</h3>
+            <p>拒绝一次性塑料袋、塑料瓶，使用环保袋和水杯，每年可减少数百公斤塑料垃圾进入自然环境。</p>
+          </div>
+        </div>
+      </div>
+      <div class="tab-content" id="water">
+        <div class="knowledge-card">
+          <img src="https://picsum.photos/id/1024/300/200" alt="节约用水" class="knowledge-img">
+          <div class="knowledge-text">
+            <h3>节约用水习惯</h3>
+            <p>刷牙时关闭水龙头、用淘米水浇花、安装节水器具等，从小事做起，珍惜每一滴水。</p>
+          </div>
+        </div>
+        <div class="knowledge-card">
+          <img src="https://picsum.photos/id/1025/300/200" alt="污水处理" class="knowledge-img">
+          <div class="knowledge-text">
+            <h3>污水处理与回用</h3>
+            <p>生活污水经处理后可用于灌溉、冲厕等，工业废水需达标排放，保护水资源生态平衡。</p>
+          </div>
+        </div>
+      </div>
+      <div class="tab-content" id="plant">
+        <div class="knowledge-card">
+          <img src="https://picsum.photos/id/152/300/200" alt="植树造林" class="knowledge-img">
+          <div class="knowledge-text">
+            <h3>参与植树活动</h3>
+            <p>树木是地球的肺，参与植树造林活动，或在阳台种植绿植，可改善空气质量，减缓温室效应。</p>
+          </div>
+        </div>
+        <div class="knowledge-card">
+          <img src="https://picsum.photos/id/153/300/200" alt="保护植被" class="knowledge-img">
+          <div class="knowledge-text">
+            <h3>保护野生植物</h3>
+            <p>不采摘野生植物，不购买濒危植物制品，支持植物园和自然保护区建设，维护生物多样性。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 环保行动页面 -->
+  <section class="action-section" id="action">
+    <div class="action-form">
+      <h2 style="text-align: center; margin-bottom: 30px; color: var(--dark);">环保行动报名</h2>
+      <form id="actionForm">
+        <div class="form-group">
+          <label for="name">姓名</label>
+          <input type="text" id="name" class="form-control" placeholder="请输入您的姓名">
+          <div class="form-error" id="nameError">请输入姓名</div>
+        </div>
+        <div class="form-group">
+          <label for="phone">手机号码</label>
+          <input type="tel" id="phone" class="form-control" placeholder="请输入手机号码">
+          <div class="form-error" id="phoneError">请输入正确的手机号码</div>
+        </div>
+        <div class="form-group">
+          <label for="email">电子邮箱</label>
+          <input type="email" id="email" class="form-control" placeholder="请输入电子邮箱">
+          <div class="form-error" id="emailError">请输入正确的电子邮箱</div>
+        </div>
+        <div class="form-group">
+          <label>参与活动</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="treePlanting" name="activities">
+              <label for="treePlanting">植树活动</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="garbageCleanup" name="activities">
+              <label for="garbageCleanup">垃圾清理</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="lecture" name="activities">
+              <label for="lecture">环保讲座</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="workshop" name="activities">
+              <label for="workshop">手工工坊</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">留言建议</label>
+          <textarea id="message" class="form-control" rows="4" placeholder="请输入您的留言或建议"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">提交报名</button>
+      </form>
+    </div>
+    <div class="action-calendar">
+      <div class="calendar-header">
+        <div class="calendar-title" id="calendarTitle">2025年6月</div>
+        <div class="calendar-nav">
+          <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+          <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="calendar-days">
+        <div class="day-header">日</div>
+        <div class="day-header">一</div>
+        <div class="day-header">二</div>
+        <div class="day-header">三</div>
+        <div class="day-header">四</div>
+        <div class="day-header">五</div>
+        <div class="day-header">六</div>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </div>
+  </section>
+
+  <!-- 成功案例页面 -->
+  <section class="case-section" id="cases">
+    <div class="section-title">
+      <h2>环保成功案例</h2>
+    </div>
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">全部案例</button>
+      <button class="filter-btn" data-filter="city">城市环保</button>
+      <button class="filter-btn" data-filter="ocean">海洋保护</button>
+      <button class="filter-btn" data-filter="forest">森林修复</button>
+      <button class="filter-btn" data-filter="community">社区行动</button>
+    </div>
+    <div class="case-grid" id="caseGrid">
+      <!-- 案例将通过JS动态加载 -->
+    </div>
+  </section>
+
+  <!-- 资源下载页面 -->
+  <section class="resource-section" id="resources">
+    <div class="section-title">
+      <h2>环保资源下载</h2>
+    </div>
+    <div class="resource-list" id="resourceList">
+      <!-- 资源将通过JS动态加载 -->
+    </div>
+  </section>
+
+  <!-- 下载模态框 -->
+  <div class="download-modal" id="downloadModal">
+    <div class="modal-content">
+      <button class="close-modal" id="closeModal">
+        <i class="fas fa-times"></i>
+      </button>
+      <h3 style="text-align: center; margin-bottom: 20px; color: var(--dark);" id="modalTitle">资源下载</h3>
+      <p style="text-align: center; margin-bottom: 20px; color: #666;" id="modalDesc">正在准备下载资源...</p>
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p style="text-align: center; margin-top: 10px; color: #888; font-size: 14px;" id="progressText">0%</p>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>关于我们</h3>
+        <ul class="footer-links">
+          <li><a href="#">组织介绍</a></li>
+          <li><a href="#">团队成员</a></li>
+          <li><a href="#">发展历程</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>环保项目</h3>
+        <ul class="footer-links">
+          <li><a href="#">植树造林</a></li>
+          <li><a href="#">垃圾分类</a></li>
+          <li><a href="#">海洋保护</a></li>
+          <li><a href="#">节能减排</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3></h3>
+        <div class="footer-contact">
+          <p><i class="fas fa-map-marker-alt"></i> 计算机应用2403揭龄雅</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+    </div>
+  </footer>
+
+  <!-- Font Awesome 图标 -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.style.padding = '10px 0';
+        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+      } else {
+        navbar.style.padding = '15px 0';
+        navbar.style.boxShadow = 'none';
+      }
+    });
+    
+    // 移动端菜单
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // 导航链接点击关闭菜单（移动端）
+    const navLinksItems = document.querySelectorAll('.nav-link');
+    navLinksItems.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+        }
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // 首页轮播图
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    let currentSlide = 0;
+    const slideInterval = 5000; // 5秒切换一次
+    
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      dots.forEach(dot => dot.classList.remove('active'));
+      
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+      currentSlide = index;
+    }
+    
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+    
+    // 自动轮播
+    let slideIntervalId = setInterval(nextSlide, slideInterval);
+    
+    // 点击圆点切换
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        clearInterval(slideIntervalId);
+        slideIntervalId = setInterval(nextSlide, slideInterval);
+      });
+    });
+    
+    // 环保知识选项卡
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
+        
+        // 移除所有选项卡的激活状态
+        tabs.forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        // 添加当前选项卡的激活状态
+        tab.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+    
+    // 环保行动表单验证
+    const actionForm = document.getElementById('actionForm');
+    const nameInput = document.getElementById('name');
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('email');
+    const nameError = document.getElementById('nameError');
+    const phoneError = document.getElementById('phoneError');
+    const emailError = document.getElementById('emailError');
+    
+    function validateName() {
+      if (nameInput.value.trim() === '') {
+        nameInput.classList.add('error');
+        nameError.classList.add('active');
+        return false;
+      } else {
+        nameInput.classList.remove('error');
+        nameError.classList.remove('active');
+        return true;
+      }
+    }
+    
+    function validatePhone() {
+      const phoneRegex = /^1[3-9]\d{9}$/;
+      if (!phoneRegex.test(phoneInput.value)) {
+        phoneInput.classList.add('error');
+        phoneError.classList.add('active');
+        return false;
+      } else {
+        phoneInput.classList.remove('error');
+        phoneError.classList.remove('active');
+        return true;
+      }
+    }
+    
+    function validateEmail() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailInput.value)) {
+        emailInput.classList.add('error');
+        emailError.classList.add('active');
+        return false;
+      } else {
+        emailInput.classList.remove('error');
+        emailError.classList.remove('active');
+        return true;
+      }
+    }
+    
+    nameInput.addEventListener('blur', validateName);
+    phoneInput.addEventListener('blur', validatePhone);
+    emailInput.addEventListener('blur', validateEmail);
+    
+    actionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const isNameValid = validateName();
+      const isPhoneValid = validatePhone();
+      const isEmailValid = validateEmail();
+      
+      if (isNameValid && isPhoneValid && isEmailValid) {
+        alert('报名成功！我们将尽快与您联系。');
+        actionForm.reset();
+      }
+    });
+    
+    // 环保行动日历
+    const calendarGrid = document.getElementById('calendarGrid');
+    const calendarTitle = document.getElementById('calendarTitle');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    
+    let currentDate = new Date();
+    let currentYear = currentDate.getFullYear();
+    let currentMonth = currentDate.getMonth();
+    
+    // 打卡数据（本地存储）
+    function getPunchData() {
+      const data = localStorage.getItem('punchData');
+      return data ? JSON.parse(data) : {};
+    }
+    
+    function savePunchData(data) {
+      localStorage.setItem('punchData', JSON.stringify(data));
+    }
+    
+    const punchData = getPunchData();
+    
+    // 生成日历
+    function generateCalendar(year, month) {
+      calendarGrid.innerHTML = '';
+      const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+      calendarTitle.textContent = `${year}年${monthNames[month]}`;
+      
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const firstDayIndex = firstDay.getDay(); // 0-6，0是周日
+      const daysInMonth = lastDay.getDate();
+      const today = new Date();
+      const isCurrentMonth = year === today.getFullYear() && month === today.getMonth();
+      
+      // 填充上个月的空白
+      for (let i = 0; i < firstDayIndex; i++) {
+        const emptyDay = document.createElement('div');
+        emptyDay.classList.add('calendar-day', 'not-current');
+        calendarGrid.appendChild(emptyDay);
+      }
+      
+      // 生成当月日期
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayElement = document.createElement('div');
+        dayElement.classList.add('calendar-day');
+        
+        // 标记今天
+        const isToday = isCurrentMonth && day === today.getDate() && year === today.getFullYear() && month === today.getMonth();
+        if (isToday) {
+          dayElement.classList.add('today');
+        }
+        
+        // 标记打卡日期
+        const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        if (punchData[dateKey]) {
+          dayElement.classList.add('punched');
+          dayElement.querySelector('.day-activity').textContent = punchData[dateKey];
+        }
+        
+        // 设置日期和活动
+        const dayNumber = document.createElement('div');
+        dayNumber.classList.add('day-number');
+        dayNumber.textContent = day;
+        
+        const dayActivity = document.createElement('div');
+        dayActivity.classList.add('day-activity');
+        dayActivity.textContent = punchData[dateKey] || '未打卡';
+        
+        dayElement.appendChild(dayNumber);
+        dayElement.appendChild(dayActivity);
+        
+        // 添加点击事件（非当月日期不可点击）
+        if (isCurrentMonth) {
+          dayElement.addEventListener('click', () => {
+            const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const activity = prompt('请输入今天的环保行动：', punchData[date] || '');
+            
+            if (activity !== null && activity.trim() !== '') {
+              punchData[date] = activity.trim();
+              savePunchData(punchData);
+              generateCalendar(year, month); // 重新生成日历以更新打卡状态
+            }
+          });
+        }
+        
+        calendarGrid.appendChild(dayElement);
+      }
+    }
+    
+    // 初始化日历
+    generateCalendar(currentYear, currentMonth);
+    
+    // 上个月
+    prevMonthBtn.addEventListener('click', () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      generateCalendar(currentYear, currentMonth);
+    });
+    
+    // 下个月
+    nextMonthBtn.addEventListener('click', () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      generateCalendar(currentYear, currentMonth);
+    });
+    
+    // 成功案例筛选与懒加载
+    const caseGrid = document.getElementById('caseGrid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    
+    // 案例数据
+    const cases = [
+      {
+        id: 1,
+        title: "城市绿色交通改造项目",
+        description: "某城市通过推广共享单车、优化公交线路，减少机动车出行，空气质量提升15%，碳排放降低20%。",
+        image: "https://picsum.photos/id/120/600/400",
+        tag: "city",
+        date: "2024-05-12",
+        views: "1.2k"
+      },
+      {
+        id: 2,
+        title: "海洋塑料垃圾清理行动",
+        description: "志愿者团队在沿海地区开展大规模塑料垃圾清理，累计清理垃圾50吨，保护了海洋生物栖息地。",
+        image: "https://picsum.photos/id/131/600/400",
+        tag: "ocean",
+        date: "2024-06-20",
+        views: "850"
+      },
+      {
+        id: 3,
+        title: "森林再造与生态修复工程",
+        description: "在退化山林区域种植 native 树种10万棵，3年后森林覆盖率提升，野生动物种群数量显著增加。",
+        image: "https://picsum.photos/id/133/600/400",
+        tag: "forest",
+        date: "2024-04-05",
+        views: "1.5k"
+      },
+      {
+        id: 4,
+        title: "社区垃圾分类示范项目",
+        description: "某社区推行智能垃圾分类系统，居民参与率达90%，垃圾回收率从30%提升至75%，成为全市典范。",
+        image: "https://picsum.photos/id/146/600/400",
+        tag: "community",
+        date: "2024-07-18",
+        views: "980"
+      },
+      {
+        id: 5,
+        title: "城市屋顶绿化计划",
+        description: "在商业建筑和居民楼屋顶种植绿植，总面积达10万平方米，夏季城市温度降低2-3℃，雨水利用率提高。",
+        image: "https://picsum.photos/id/152/600/400",
+        tag: "city",
+        date: "2024-03-25",
+        views: "1.1k"
+      },
+      {
+        id: 6,
+        title: "海洋珊瑚礁保护项目",
+        description: "通过建立海洋保护区和人工珊瑚培育，受损珊瑚礁区域生态逐渐恢复，鱼类种群数量增加40%。",
+        image: "https://picsum.photos/id/164/600/400",
+        tag: "ocean",
+        date: "2024-08-10",
+        views: "760"
+      },
+      {
+        id: 7,
+        title: "废弃矿区生态修复工程",
+        description: "对废弃矿区进行土壤改良和植被恢复，昔日荒地变为生态公园，成为市民休闲和科普教育基地。",
+        image: "https://picsum.photos/id/177/600/400",
+        tag: "forest",
+        date: "2024-02-15",
+        views: "1.3k"
+      },
+      {
+        id: 8,
+        title: "社区食物垃圾堆肥项目",
+        description: "社区居民将食物垃圾转化为有机肥料，用于社区花园种植，减少垃圾填埋量，实现资源循环利用。",
+        image: "https://picsum.photos/id/182/600/400",
+        tag: "community",
+        date: "2024-09-03",
+        views: "890"
+      }
+    ];
+    
+    // 渲染案例
+    function renderCases(filter = 'all') {
+      caseGrid.innerHTML = '';
+      
+      const filteredCases = filter === 'all' 
+        ? cases 
+        : cases.filter(caseItem => caseItem.tag === filter);
+      
+      filteredCases.forEach(caseItem => {
+        const caseCard = document.createElement('div');
+        caseCard.classList.add('case-card');
+        caseCard.dataset.tag = caseItem.tag;
+        
+        caseCard.innerHTML = `
+          <div class="case-img-container">
+            <img src="${caseItem.image}" alt="${caseItem.title}" class="case-img">
+            <div class="case-tag">${getTagText(caseItem.tag)}</div>
+          </div>
+          <div class="case-content">
+            <h3>${caseItem.title}</h3>
+            <p>${caseItem.description}</p>
+            <div class="case-meta">
+              <i class="far fa-calendar"></i> ${formatDate(caseItem.date)}
+              <i class="far fa-eye" style="margin-left: 15px;"></i> ${caseItem.views}
+            </div>
+          </div>
+        `;
+        
+        caseGrid.appendChild(caseCard);
+      });
+      
+      // 初始化懒加载
+      initLazyLoad();
+    }
+    
+    // 标签文本映射
+    function getTagText(tag) {
+      const tagMap = {
+        'city': '城市环保',
+        'ocean': '海洋保护',
+        'forest': '森林修复',
+        'community': '社区行动'
+      };
+      return tagMap[tag] || tag;
+    }
+    
+    // 日期格式化
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+    }
+    
+    // 初始化案例
+    renderCases();
+    
+    // 案例筛选
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // 移除所有按钮的激活状态
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // 添加当前按钮的激活状态
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        renderCases(filter);
+      });
+    });
+    
+    // 懒加载
+    function initLazyLoad() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1 // 元素进入视口10%时触发
+      });
+      
+      document.querySelectorAll('.case-card:not(.visible)').forEach(card => {
+        observer.observe(card);
+      });
+    }
+    
+    // 资源下载
+    const resourceList = document.getElementById('resourceList');
+    const downloadModal = document.getElementById('downloadModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    
+    // 资源数据
+    const resources = [
+      {
+        id: 1,
+        title: "《家庭环保指南》",
+        description: "家庭日常环保小技巧，涵盖节能、节水、垃圾分类等实用知识",
+        icon: "fa-book",
+        fileSize: "2.5MB",
+        downloads: "1280"
+      },
+      {
+        id: 2,
+        title: "《企业环保管理手册》",
+        description: "企业环保管理规范与实施指南，帮助企业降低碳排放",
+        icon: "fa-industry",
+        fileSize: "4.2MB",
+        downloads: "850"
+      },
+      {
+        id: 3,
+        title: "《校园环保活动策划方案》",
+        description: "适合学校开展的环保主题活动策划，含详细执行流程",
+        icon: "fa-graduation-cap",
+        fileSize: "3.1MB",
+        downloads: "1020"
+      },
+      {
+        id: 4,
+        title: "《环保志愿者培训资料》",
+        description: "环保志愿者入门培训课程，包括理论知识和实践技能",
+        icon: "fa-hands-helping",
+        fileSize: "5.8MB",
+        downloads: "760"
+      },
+      {
+        id: 5,
+        title: "《城市垃圾分类标准》",
+        description: "最新城市生活垃圾分类标准与操作指南",
+        icon: "fa-trash-alt",
+        fileSize: "1.8MB",
+        downloads: "1530"
+      },
+      {
+        id: 6,
+        title: "《可再生能源科普手册》",
+        description: "太阳能、风能等可再生能源原理与应用案例",
+        icon: "fa-sun",
+        fileSize: "3.9MB",
+        downloads: "980"
+      }
+    ];
+    
+    // 渲染资源
+    function renderResources() {
+      resourceList.innerHTML = '';
+      
+      resources.forEach(resource => {
+        const resourceCard = document.createElement('div');
+        resourceCard.classList.add('resource-card');
+        
+        resourceCard.innerHTML = `
+          <div class="resource-icon">
+            <i class="fas ${resource.icon}"></i>
+          </div>
+          <div class="resource-info">
+            <h3>${resource.title}</h3>
+            <p>${resource.description}</p>
+            <a href="#" class="download-btn" data-id="${resource.id}">下载资源 (${resource.fileSize})</a>
+          </div>
+        `;
+        
+        resourceList.appendChild(resourceCard);
+      });
+      
+      // 添加下载事件
+      document.querySelectorAll('.download-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const resourceId = e.target.getAttribute('data-id');
+          const resource = resources.find(r => r.id == resourceId);
+          if (resource) {
+            downloadResource(resource);
+          }
+        });
+      });
+    }
+    
+    // 初始化资源
+    renderResources();
+    
+    // 下载资源
+    function downloadResource(resource) {
+      modalTitle.textContent = resource.title;
+      modalDesc.textContent = resource.description;
+      progressBar.style.width = '0%';
+      progressText.textContent = '0%';
+      
+      // 显示模态框
+      downloadModal.classList.add('active');
+      
+      // 模拟下载进度
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 5;
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `${progress}%`;
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            alert(`《${resource.title}》下载完成！\n已保存至您的下载文件夹。`);
+            closeModal.click();
+          }, 500);
+        }
+      }, 100);
+    }
+    
+    // 关闭模态框
+    closeModal.addEventListener('click', () => {
+      downloadModal.classList.remove('active');
+    });
+    
+    // 点击模态框外部关闭
+    downloadModal.addEventListener('click', (e) => {
+      if (e.target === downloadModal) {
+        downloadModal.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
